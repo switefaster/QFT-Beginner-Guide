@@ -1,0 +1,33 @@
+name: Deploy PDF to Pages
+
+on:
+  push:
+    branches:
+      - main
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  # Build job
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Generate PDF document
+        uses: hspaans/latexmk-action@v2.1.0
+        with:
+          format: pdf
+          filename: main.tex
+      - name: Make Folder and Move
+        run: mkdir public & mv main.pdf public/qft-beginner.pdf
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          personal_token: ${{ secrets.UPLOAD_TOKEN }}
+          publish_dir: ./public
+          publish_branch: main
+          destination_dir: lectures
+          external_repository: switefaster/switefaster.github.io
