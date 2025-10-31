@@ -1,5 +1,8 @@
 \documentclass{naive-article}
 
+\usepackage{tikz}
+\usetikzlibrary{decorations.markings}
+
 \title{QFT: A Beginner's Guide}
 \author{Alex Lin}
 
@@ -80,7 +83,7 @@ We can try to recover the familiar wave function description. What we can now cr
 
 One last question before we move on. What does the field operator $\phi$ mean in this context? This is more subtle than you would have expected. The quantization provided a discretized excitation of the field, but they are represented in terms of the normal modes. Thinking from the wave packet aspect, which is closer to our classical intuition, the amplitude of the field roughly represents the number of particles (i.e., how strongly the field is excited), and the speed of the wave packet represents the momentum.
 
-\section{Quantum Scalar Field}
+\section{Free Quantum Scalar Field}
 \subsection{Klein-Gordon Revisited}
 We explored around and guessed (or forced you to believe) some results about the quantized Klein-Gordon field. In this subsection, let's put those conclusions on a more solid basis. Our starting point is the Lagrangian density
 \begin{equation*}
@@ -248,9 +251,101 @@ Think carefully about the integral $\int \frac{d^4p}{(2\pi)^4}\frac{ie^{-ip\cdot
 
 This means that all the paths belonging to the same homotopy class describe the Green function subject to the same boundary condition, and different pole prescriptions provide different boundary conditions. Although it is hard to say whether this accounts for all possible boundary conditions, this covers all cases that we would use.
 
-For example, if we choose a path that picks up the two poles from below, or equivalently, a path slightly shifted to the negative imaginary axis, the resulting Green function is called the \textbf{retarded propagator}. The retarded propagator get its name because it is $0$ when $x^0<y^0$, so it is the causal response to a point disturbance. Similarly, if one chooses to pick the two poles from above, it is $0$ when $x^0>y^0$ and it is the \textbf{advanced propagator}.
+For example, if we choose a path that picks up the two poles from above (see Fig. \ref{fig:retarded-propagator}), or equivalently, a path slightly shifted to the positive imaginary axis, the resulting Green function is called the \textbf{retarded propagator}. The retarded propagator get its name because it is $0$ when $x^0<y^0$, so it is the causal response to a point disturbance. Similarly, if one chooses to pick the two poles from below (Fig. \ref{fig:advanced-propagator}), it is $0$ when $x^0>y^0$ and it is the \textbf{advanced propagator}.
 
-A particularly useful propagator in QFT is the \textbf{Feynman propagator}. It is described by the pole prescription of picking the $-E_\mathbf{p}$ pole from below and the $E_\mathbf{p}$ pole from above. This results in
+\begin{figure}[!htb]
+    \centering
+    \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Shape: Axis 2D [id:dp19021134988303667] 
+\draw  (117.2,171.99) -- (541.44,171.99)(328.64,37.6) -- (328.64,254.64) (534.44,166.99) -- (541.44,171.99) -- (534.44,176.99) (323.64,44.6) -- (328.64,37.6) -- (333.64,44.6)  ;
+%Shape: Free Drawing [id:dp7182675262791272] 
+\draw  [line width=3] [line join = round][line cap = round] (210.2,171.9) .. controls (210.2,171.9) and (210.2,171.9) .. (210.2,171.9) ;
+%Shape: Free Drawing [id:dp5698132248798358] 
+\draw  [line width=3] [line join = round][line cap = round] (450.2,171.4) .. controls (450.2,171.4) and (450.2,171.4) .. (450.2,171.4) ;
+%Shape: Arc [id:dp42528895990298676] 
+\draw  [draw opacity=0] (180.5,172.5) .. controls (180.5,172.5) and (180.5,172.5) .. (180.5,172.5) .. controls (180.5,172.5) and (180.5,172.5) .. (180.5,172.5) .. controls (180.5,155.93) and (193.93,142.5) .. (210.5,142.5) .. controls (227.07,142.5) and (240.5,155.93) .. (240.5,172.5) -- (210.5,172.5) -- cycle ; \draw   (180.5,172.5) .. controls (180.5,172.5) and (180.5,172.5) .. (180.5,172.5) .. controls (180.5,172.5) and (180.5,172.5) .. (180.5,172.5) .. controls (180.5,155.93) and (193.93,142.5) .. (210.5,142.5) .. controls (227.07,142.5) and (240.5,155.93) .. (240.5,172.5) ;  
+%Shape: Arc [id:dp18214287486303737] 
+\draw  [draw opacity=0] (420.5,172.5) .. controls (420.5,172.5) and (420.5,172.5) .. (420.5,172.5) .. controls (420.5,172.5) and (420.5,172.5) .. (420.5,172.5) .. controls (420.5,155.93) and (433.93,142.5) .. (450.5,142.5) .. controls (467.07,142.5) and (480.5,155.93) .. (480.5,172.5) -- (450.5,172.5) -- cycle ; \draw   (420.5,172.5) .. controls (420.5,172.5) and (420.5,172.5) .. (420.5,172.5) .. controls (420.5,172.5) and (420.5,172.5) .. (420.5,172.5) .. controls (420.5,155.93) and (433.93,142.5) .. (450.5,142.5) .. controls (467.07,142.5) and (480.5,155.93) .. (480.5,172.5) ;  
+\draw   (204.5,137.5) -- (214.9,142.7) -- (204.5,147.9) ;
+\draw   (288,166.5) -- (298.4,171.7) -- (288,176.9) ;
+\draw   (369.5,166.5) -- (379.9,171.7) -- (369.5,176.9) ;
+\draw   (445,137.5) -- (455.4,142.7) -- (445,147.9) ;
+
+% Text Node
+\draw (200.5,149) node [anchor=north west][inner sep=0.75pt]   [align=left] {{\fontfamily{pcr}\selectfont {\footnotesize -Ep}}};
+% Text Node
+\draw (443,148.5) node [anchor=north west][inner sep=0.75pt]   [align=left] {{\fontfamily{pcr}\selectfont {\footnotesize Ep}}};
+
+
+\end{tikzpicture}
+\caption{Contour for Retarded Propagator}\label{fig:retarded-propagator}
+\end{figure}
+
+\begin{figure}[!htb]
+    \centering
+    \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Shape: Axis 2D [id:dp19021134988303667] 
+\draw  (117.2,171.99) -- (541.44,171.99)(328.64,37.6) -- (328.64,254.64) (534.44,166.99) -- (541.44,171.99) -- (534.44,176.99) (323.64,44.6) -- (328.64,37.6) -- (333.64,44.6)  ;
+%Shape: Free Drawing [id:dp7182675262791272] 
+\draw  [line width=3] [line join = round][line cap = round] (210.2,171.9) .. controls (210.2,171.9) and (210.2,171.9) .. (210.2,171.9) ;
+%Shape: Free Drawing [id:dp5698132248798358] 
+\draw  [line width=3] [line join = round][line cap = round] (450.2,171.4) .. controls (450.2,171.4) and (450.2,171.4) .. (450.2,171.4) ;
+%Shape: Arc [id:dp42528895990298676] 
+\draw  [draw opacity=0] (240.5,172.5) .. controls (240.5,172.5) and (240.5,172.5) .. (240.5,172.5) .. controls (240.5,172.5) and (240.5,172.5) .. (240.5,172.5) .. controls (240.5,189.07) and (227.07,202.5) .. (210.5,202.5) .. controls (193.93,202.5) and (180.5,189.07) .. (180.5,172.5) -- (210.5,172.5) -- cycle ; \draw   (240.5,172.5) .. controls (240.5,172.5) and (240.5,172.5) .. (240.5,172.5) .. controls (240.5,172.5) and (240.5,172.5) .. (240.5,172.5) .. controls (240.5,189.07) and (227.07,202.5) .. (210.5,202.5) .. controls (193.93,202.5) and (180.5,189.07) .. (180.5,172.5) ;  
+%Shape: Arc [id:dp18214287486303737] 
+\draw  [draw opacity=0] (480.5,172.5) .. controls (480.5,172.5) and (480.5,172.5) .. (480.5,172.5) .. controls (480.5,172.5) and (480.5,172.5) .. (480.5,172.5) .. controls (480.5,189.07) and (467.07,202.5) .. (450.5,202.5) .. controls (433.93,202.5) and (420.5,189.07) .. (420.5,172.5) -- (450.5,172.5) -- cycle ; \draw   (480.5,172.5) .. controls (480.5,172.5) and (480.5,172.5) .. (480.5,172.5) .. controls (480.5,172.5) and (480.5,172.5) .. (480.5,172.5) .. controls (480.5,189.07) and (467.07,202.5) .. (450.5,202.5) .. controls (433.93,202.5) and (420.5,189.07) .. (420.5,172.5) ;  
+\draw   (204.5,197) -- (214.9,202.2) -- (204.5,207.4) ;
+\draw   (288,166.5) -- (298.4,171.7) -- (288,176.9) ;
+\draw   (369.5,166.5) -- (379.9,171.7) -- (369.5,176.9) ;
+\draw   (444.5,197) -- (454.9,202.2) -- (444.5,207.4) ;
+
+% Text Node
+\draw (200.5,149) node [anchor=north west][inner sep=0.75pt]   [align=left] {{\fontfamily{pcr}\selectfont {\footnotesize -Ep}}};
+% Text Node
+\draw (443,148.5) node [anchor=north west][inner sep=0.75pt]   [align=left] {{\fontfamily{pcr}\selectfont {\footnotesize Ep}}};
+
+
+\end{tikzpicture}
+\caption{Contour for Advanced Propagator}\label{fig:advanced-propagator}
+\end{figure}
+
+\begin{figure}[!htb]
+    \centering
+    \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Shape: Axis 2D [id:dp19021134988303667] 
+\draw  (117.2,171.99) -- (541.44,171.99)(328.64,37.6) -- (328.64,254.64) (534.44,166.99) -- (541.44,171.99) -- (534.44,176.99) (323.64,44.6) -- (328.64,37.6) -- (333.64,44.6)  ;
+%Shape: Free Drawing [id:dp7182675262791272] 
+\draw  [line width=3] [line join = round][line cap = round] (210.2,171.9) .. controls (210.2,171.9) and (210.2,171.9) .. (210.2,171.9) ;
+%Shape: Free Drawing [id:dp5698132248798358] 
+\draw  [line width=3] [line join = round][line cap = round] (450.2,171.4) .. controls (450.2,171.4) and (450.2,171.4) .. (450.2,171.4) ;
+%Shape: Arc [id:dp42528895990298676] 
+\draw  [draw opacity=0] (240.5,172.5) .. controls (240.5,172.5) and (240.5,172.5) .. (240.5,172.5) .. controls (240.5,172.5) and (240.5,172.5) .. (240.5,172.5) .. controls (240.5,189.07) and (227.07,202.5) .. (210.5,202.5) .. controls (193.93,202.5) and (180.5,189.07) .. (180.5,172.5) -- (210.5,172.5) -- cycle ; \draw   (240.5,172.5) .. controls (240.5,172.5) and (240.5,172.5) .. (240.5,172.5) .. controls (240.5,172.5) and (240.5,172.5) .. (240.5,172.5) .. controls (240.5,189.07) and (227.07,202.5) .. (210.5,202.5) .. controls (193.93,202.5) and (180.5,189.07) .. (180.5,172.5) ;  
+%Shape: Arc [id:dp18214287486303737] 
+\draw  [draw opacity=0] (420.5,172.5) .. controls (420.5,172.5) and (420.5,172.5) .. (420.5,172.5) .. controls (420.5,172.5) and (420.5,172.5) .. (420.5,172.5) .. controls (420.5,155.93) and (433.93,142.5) .. (450.5,142.5) .. controls (467.07,142.5) and (480.5,155.93) .. (480.5,172.5) -- (450.5,172.5) -- cycle ; \draw   (420.5,172.5) .. controls (420.5,172.5) and (420.5,172.5) .. (420.5,172.5) .. controls (420.5,172.5) and (420.5,172.5) .. (420.5,172.5) .. controls (420.5,155.93) and (433.93,142.5) .. (450.5,142.5) .. controls (467.07,142.5) and (480.5,155.93) .. (480.5,172.5) ;  
+\draw   (204.5,197) -- (214.9,202.2) -- (204.5,207.4) ;
+\draw   (288,166.5) -- (298.4,171.7) -- (288,176.9) ;
+\draw   (369.5,166.5) -- (379.9,171.7) -- (369.5,176.9) ;
+\draw   (444.5,137.5) -- (454.9,142.7) -- (444.5,147.9) ;
+
+% Text Node
+\draw (200.5,149) node [anchor=north west][inner sep=0.75pt]   [align=left] {{\fontfamily{pcr}\selectfont {\footnotesize -Ep}}};
+% Text Node
+\draw (443,148.5) node [anchor=north west][inner sep=0.75pt]   [align=left] {{\fontfamily{pcr}\selectfont {\footnotesize Ep}}};
+
+
+\end{tikzpicture}
+
+
+\caption{Contour for Feynman Propagator}\label{fig:feynman-propagator}
+\end{figure}
+
+A particularly useful propagator in QFT is the \textbf{Feynman propagator}. It is described by the pole prescription of picking the $-E_\mathbf{p}$ pole from below and the $E_\mathbf{p}$ pole from above (Fig. \ref{fig:feynman-propagator}). This results in
 \begin{equation}
     \label{feynman-propagator}
     D_F(x-y)=\begin{cases}
@@ -258,13 +353,11 @@ A particularly useful propagator in QFT is the \textbf{Feynman propagator}. It i
         D(y-x) & x^0<y^0
     \end{cases}
 \end{equation}
-
-A more common way to write the Feynman propagator is the $i\epsilon$-prescription
+\newpage
+A more common way to write the Feynman propagator is the $i\epsilon$-prescription, so that the poles are slightly shifted upward and downward from the axis, so the correct poles are naturally picked up.
 \begin{equation*}
     D_F(x-y)=\int \frac{d^4p}{(2\pi)^4}\frac{ie^{-ip\cdot(x-y)}}{p^2-m^2+i\epsilon}\quad\epsilon>0
 \end{equation*}
-
-This way, the poles are slightly shifted upward and downward from the axis, so the correct poles are naturally picked up.
 
 Finally, an interesting fact to mention is that all sorts of propagators (i.e., Green functions) are also described by the vacuum expectation value of the different products of two field operators, which are what two-point correlation functions really refer to. For example, the retarded propagator is often written as
 \begin{equation*}
@@ -277,6 +370,14 @@ Importantly, the Feynman propagator is written as
 \end{equation*}
 
 We introduced the \textbf{time ordering} in this expression. Similar to normal ordering, time ordering re-order the operators in it according to their time label, with the latest one to the leftmost. So when $x^0>y^0$, $T[\phi(x)\phi(y)]=\phi(x)\phi(y)$ and vice versa. You are recommended to check this expression yourself.
+
+\section{Free Fermionic Field}
+\subsection{Representation Theory}
+
+\section{Quantum Free Fermion}
+
+\section{The Interaction Picture}
+\section{The Feynman Path Integral}
 
 \appendix
 \section{Structure of Lorentz Group}
