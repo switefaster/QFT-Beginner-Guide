@@ -10,6 +10,7 @@
 
 \newcommand{\bra}[1]{\left<#1\right|}
 \newcommand{\ket}[1]{\left|#1\right>}
+\newcommand{\braket}[2]{\left<#1|#2\right>}
 \newcommand{\comm}[2]{\left[#1,#2\right]}
 \newcommand{\crea}[2]{#1^\dagger_\mathbf{#2}}
 \newcommand{\annhil}[2]{#1_\mathbf{#2}}
@@ -371,12 +372,113 @@ Importantly, the Feynman propagator is written as
 
 We introduced the \textbf{time ordering} in this expression. Similar to normal ordering, time ordering re-order the operators in it according to their time label, with the latest one to the leftmost. So when $x^0>y^0$, $T[\phi(x)\phi(y)]=\phi(x)\phi(y)$ and vice versa. You are recommended to check this expression yourself.
 
-\section{Free Fermionic Field}
+\section{The Pandora Box: Interaction}
+If you wish, we could go on and carry out every detail of the quantum free scalar, i.e., it is exactly solved. But that's too much for us. All the introduced devices in the previous section are enough to let us peek into the world of interacting field theories, meaning that the fields are no longer decomposed into decoupled wave modes. In our interpretation where excitation of modes are recognized as particles, this indicates interaction between them: as time elapses, modes can cease or arise in accord to each other. However, all those interpretations usually only make sense when the interactions are small, so the theory can be thought as modified upon the free theory, or equivalently, free particles. And indeed, we will only work with perturbative interactions, though another important reason for that is nobody knows how to properly deal with strongly coupled quantum fields.
+
+Even if we are to work with perturbative calculations, the interacting theories are incredibly complicated, and we will inevitably run into the problem of infinities and renormalization. In fact, one would fairly say that the entire complication of QFT comes from interactions. In this section, we will avoid renormalization as much as possible, and focus on introducing the formalism. Even in this case, there are still many things to say.
+\subsection{The Interaction Picture}
+We all know that the Schrödinger picture involves evolving states and stationary operators, while the Heisenberg picture involves stationary states and evolving operators. The key idea of the interaction picture is that, find a way to evolve both the states and the operators, so that the time evolution looks as if only part of the Hamiltonian is relevant. We denote a Schrödinger picture state by $\ket{\Psi(t)}_S$. Also, we assume a Hamiltonian of the form
+\begin{equation*}
+    H=H_0+H_\text{int}
+\end{equation*}
+Although the separation of the Hamiltonian is arbitrary, we conventionally separate it into a free part and an interaction part.
+
+Then, we define the transformation from the Schrödinger picture to the interaction picture, with identification at $t=t_0$
+\begin{equation*}
+    \ket{\Psi(t)}_I=\exp{\{iH_{0,S} (t-t_0)\}}\ket{\Psi(t)}_S\quad\ket{\Psi(t_0)}_I=\ket{\Psi(t_0)}_S
+\end{equation*}
+and the corresponding transformation of operators
+\begin{equation*}
+    \mathcal{O}_I(t)=\exp{\{iH_{0,S} (t-t_0)\}}\mathcal{O}_S\exp{\{-iH_{0,S} (t-t_0)\}}
+\end{equation*}
+
+With all the rules, we can now transform the Schrödinger equation
+\begin{equation*}
+    \begin{split}
+    i\frac{\ket{\Psi(t)}_I}{dt}&=i\frac{d\left(\exp{\{iH_{0,S} (t-t_0)\}}\ket{\Psi(t)}_S\right)}{dt}\\
+    &=-\exp{\{iH_{0,S} (t-t_0)\}}H_{0,S}\ket{\Psi(t)}_S+i\exp{\{iH_{0,S} (t-t_0)\}}\frac{\ket{\Psi(t)}_S}{dt}\\
+    &=-\exp{\{iH_{0,S} (t-t_0)\}}H_{0,S}\exp{\{-iH_{0,S} (t-t_0)\}}\exp{\{iH_{0,S} (t-t_0)\}}\ket{\Psi(t)}_S\\
+    &\quad+\exp{\{iH_{0,S} (t-t_0)\}}H_S\exp{\{-iH_{0,S} (t-t_0)\}}\exp{\{iH_{0,S} (t-t_0)\}}\ket{\Psi(t)}_S\\
+    &=-H_{0,I}(t)\ket{\Psi(t)}_I+H_{I}(t)\ket{\Psi(t)}_I\\
+    &=H_{\text{int},I}(t)\ket{\Psi(t)}_I
+    \end{split}
+\end{equation*}
+
+Although not that important, we can directly read off the evolution of the operator from the definition of transformation
+\begin{equation*}
+    i\frac{d\mathcal{O}_I(t)}{dt}=\comm{\mathcal{O}_I(t)}{H_{0,I}(t)}
+\end{equation*}
+much like the Heisenberg picture.
+
+The transformed Schrödinger equation can be solved iteratively by
+\begin{equation*}
+    \begin{split}
+        \ket{\Psi(t)}_I&=\left(1+i\int_{t_0}^t H_{\text{int},I}(\tau)d\tau+i^2\int_{t_0}^t\int_{t_0}^\tau H_{\text{int},I}(\tau)H_{\text{int},I}(\tau^\prime)d\tau^\prime d\tau+\cdots\right)\ket{\Psi(t_0)}_I\\
+        &=\left(1+i\int_{t_0}^t H_{\text{int},I}(\tau)d\tau+\frac{i^2}{2!}\int_{t_0}^t\int_{t_0}^t T\left[H_{\text{int},I}(\tau)H_{\text{int},I}(\tau^\prime)\right]d\tau^\prime d\tau+\cdots\right)\ket{\Psi(t_0)}_I\\
+        &=T\left[\exp{\left\{i\int_{t_0}^t H_{\text{int},I}(\tau) d\tau\right\}}\right]\ket{\Psi(t_0)}_I
+    \end{split}
+\end{equation*}
+The first line can be checked to solve the equation by direct differentiation, and in the second line we inserted the time ordering to unify the interval of integral, with a $\frac{1}{n!}$ accounting for the multiplicity. The third line is a compact way to denote this.
+
+This is the celebrated \textbf{Dyson series}, the explicit evolution of states in the interaction picture, which is also significant in time dependent perturbation. It is worth pointing out that so far every results are exact and non-perturbative, but this scheme is especially suitable for perturbation because if $H_\text{int}$ is controlled by some small parameter $\epsilon$, then the Dyson series make explicit the contributions of different orders of $\epsilon$ into the time evolution, and one can reasonably cutoff at some finite order of $\epsilon$ to get perturbative results.
+\subsection{Physical Vacuum}
+It is time to utilise the device to the real scalar theory. Let us introduce an interaction to the Klein-Gordon field by modifying the Lagrangian density as
+\begin{equation*}
+    \mathcal{L}=\frac12\partial^\mu\phi\partial_\mu\phi-\frac12 m^2\phi^2-\frac{\lambda}{4!}\phi^4
+\end{equation*}
+so that the corresponding $\mathbf{H}_\text{int}$ is
+\begin{equation*}
+    \mathbf{H}_\text{int}=\int d^3x\,\frac{\lambda}{4!}\phi^4
+\end{equation*}
+
+Here we begin to enjoy the first elegance provided by the interaction picture: since the operators are just evolved with the free part, the time-dependent $\phi(x)$ we worked out is still available, just with the creation and annihilation operators in it replaced with the corresponding interaction picture one. For this is the general case, we will drop the subscripts indicating pictures without ambiguity.
+
+But we also run into our first problem: what is the vacuum now? Note that we have two ``vacua", one that is annihilated by the annihilation operator $\annhil{a}{p}\ket{0}=0$, and another that is the lowest-energy eigenstate of the full Hamiltonian. In free theories, the two coincides. But since we modified the Hamiltonian, we can no longer expect that\footnote{If you are confused, think about adding extra terms to the quantum hamonic oscillator.}, and the \textit{de facto} vacuum we should look for is, of course, the latter one, which we will call it the physical vacuum\footnote{Subtlety already arises here, because switching the vacuum somehow destroys the interpretation of particle numbers and the action of creation annihilation operators. For example: is the vacuum really free of particles? But this does not matter because we are not dealing with scattering in this section. We can only address this fact when we think about renormalization.}. However, the creation annihilation description is too good to dispose, and it is pleasing if we can find the relation between the two.
+
+For convenience, we will denote the evolution operator by
+\begin{equation*}
+    U(t,t_0)\equiv T\left[\exp{\left\{i\int_{t_0}^t \mathbf{H}_{\text{int}}(\tau) d\tau\right\}}\right]
+\end{equation*}
+and the energy eigenstate of the full Hamiltonian by $\ket{\Omega}$ and $\ket{n}\,n\geq1$. Then if we evolve the free vacuum $\ket{0}$
+\begin{equation*}
+    U(t,t_0)\ket{0}=\braket{\Omega}{0}e^{-iE_0(t-t_0)}\ket{\Omega}+\sum_{n=1}^\infty \braket{n}{0}e^{-iE_n(t-t_0)}\ket{n}
+\end{equation*}
+
+It is satisfying if states with higher energy would die out. In principle, we can imagine a process where the interaction is turned off (i.e. $\lambda=0$) at some distant past, and then adiabatically turned on, so that the ground state evlolved to the ground state. We can implement this without being rigorous by pushing $t_0$ to the far past while it takes on a small imaginary part (characterizing the dissipation caused by the adiabatic process).
+\begin{equation*}
+    \lim_{T\to (1-i\epsilon)\infty}U(t,-T)\ket{0}=\braket{\Omega}{0}e^{-iE_0(t+T)}\ket{\Omega}
+\end{equation*}
+
+We can repeat the process for $\bra{\Omega}$
+\begin{equation*}
+    \bra{0}U(t,t_0)^\dagger=\bra{\Omega}\braket{0}{\Omega}e^{iE_0(t-t_0)}+\sum_{n=1}^\infty \bra{n}\braket{0}{n}e^{iE_n(t-t_0)}
+\end{equation*}
+\begin{equation*}
+    \lim_{T\to (1-i\epsilon)\infty}\bra{0}U(T,t)=\bra{\Omega}\braket{0}{\Omega}e^{-iE_0(T-t)}
+\end{equation*}
+
+Therefore, we have isolated the physical vacuum
+\begin{equation*}
+\begin{cases}
+    \ket{\Omega}=\lim_{T\to (1-i\epsilon)\infty}(\braket{\Omega}{0}e^{-iE_0(t+T)})^{-1}U(t,-T)\ket{0}\\
+    \bra{\Omega}=\lim_{T\to (1-i\epsilon)\infty}(\braket{0}{\Omega}e^{-iE_0(T-t)})^{-1}\bra{0}U(T,t)
+\end{cases}
+\end{equation*}
+
+From which, we can, for example, calculate the vacuum norm
+\begin{equation*}
+    \braket{\Omega}{\Omega}=\lim_{T\to (1-i\epsilon)\infty}\frac{\bra{0}U(T,-T)\ket{0}}{\left|\braket{\Omega}{0}\right|^2e^{-2iE_0T}}\stackrel{?}{=}1
+\end{equation*}
+Which is appropriately independent of $t$, the current time reference. However, it consists of unknown quantities such as $\braket{\Omega}{0}$ and a suspicious phase for the physical vacuum energy, which, usually, should in principle be fine because we will set this to $1$ for normalization. A more solid reasoning is that, when we later calculate the $n$-point correlation function, we will divide the entire expectation value with this normalization, and the expectation value indeed contains the exact same factor, that is safely quotiented, so no annoying phase will survive.
+
+One last thing to remark here is that the imaginary time $i\epsilon$ is somehow identified with the $i\epsilon$ prescription of the Feynman propagator, which we will not explain here.
+\section{Free Spinor Field}
+If you are familiar enough to the relativistic quantum mechanics, or you simply read previous sections carefully, you know about the Dirac field and the Spin-Statistics Theorem. As indicated in the section title, we will not talk about generic fermions but instead only the Dirac field. Following the route of quantizing scalars, some perhaps can't wait to write down the Lagrangian for the Dirac field and canonically quantize it. For those people: another disappointment for you! While that is what we will do later, we will first do some tedious maths and clarify what is the spin of fields we've been constantly talking about.
 \subsection{Representation Theory}
+The necessity of studying the spins of particles traces to the representation theory of the Poincare group, which is the symmetry of the relativistic field theory.
 
-\section{Quantum Free Fermion}
+\section{Quantum Free Spinor}
 
-\section{The Interaction Picture}
 \section{The Feynman Path Integral}
 
 \appendix
