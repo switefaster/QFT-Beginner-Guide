@@ -217,7 +217,7 @@ As we notice, the commutator of the field operator is a $c$-number. In fact, we 
     \end{split}
 \end{equation*}
 
-In the above, we defined the function $D(x-y)=\int \frac{d^3\mathbf p}{(2\pi)^3E_\mathbf p}e^{-ip\cdot(x-y)}$, and we wrote a four-integral following $\sim$, because $D(x-y)$ and $-D(y-x)$ are essentially the residues of the integrand with respect to $p^0$.
+In the above, we defined the function $D(x-y)=\int \frac{d^3\mathbf p}{(2\pi)^3 2E_\mathbf p}e^{-ip\cdot(x-y)}$, and we wrote a four-integral following $\sim$, because $D(x-y)$ and $-D(y-x)$ are essentially the residues of the integrand with respect to $p^0$.
 
 The integral does not come from nowhere, and it is crucial to understand its spirit to convince yourself of the name ``propagator". The commutator of the field operator kind of measures how the measurement at $x$ affects the measurement at $y$. Physically, when such a measurement takes place, the ``field value" at $x$ is suddenly fixed to a classical value $\phi(x)$. The consequence of the altered field state has to somehow propagate to $y$ at a finite speed due to our relativistic settings. In this way, although far from being rigorous, we are encouraged to think about how the Klein-Gordon field reacts to a disturbance. Classically, such a response is encoded in the sourced Klein-Gordon equation
 \begin{equation*}
@@ -471,7 +471,56 @@ From which, we can, for example, calculate the vacuum norm
 \end{equation*}
 Which is appropriately independent of $t$, the current time reference. However, it consists of unknown quantities such as $\braket{\Omega}{0}$ and a suspicious phase for the physical vacuum energy, which, usually, should in principle be fine because we will set this to $1$ for normalization. A more solid reasoning is that, when we later calculate the $n$-point correlation function, we will divide the entire expectation value with this normalization, and the expectation value indeed contains the exact same factor, that is safely quotiented, so no annoying phase will survive.
 
-One last thing to remark here is that the imaginary time $i\epsilon$ is somehow identified with the $i\epsilon$ prescription of the Feynman propagator, which we will not explain here.
+One last thing to remark here is that the imaginary time $i\epsilon$ is somehow identified with the $i\epsilon$ prescription of the Feynman propagator, as we will see later.
+\subsection{Wick Theorem}
+We made the physical vacuum available in last subsection, and we can proceed to work out more interesting quantities. One family of such quantities is the $n$-point correlation functions, as mentioned before, which we here formally define it as the vacuum expectation value of the time-ordered product of $n$ fields. For example, the below is a $3$-point correlation function
+\begin{equation*}
+    \bra{\Omega}T[\phi(x)\phi(y)\phi(z)]\ket{\Omega}
+\end{equation*}
+
+Actually, the correlation functions are the only quantities relevant in QFT, in the sense that they contain all the data needed to obtain observables, especially the $S$-matrix, which is the core observable of QFT.
+
+With that being said, we now try to work out the simplest correlation function, the $2$-point correlation function. You might wonder why we care not the $1$-point correlator. In $\phi^4$ theory, we don't worry about it because it will turn out to be $0$. In other $\phi$-to-an-odd-number theories, it will apparently have non-zero values, but it will eventually be fixed to $0$, by renormalization, anyway.
+
+We express the $2$-point function in free vacuum
+\begin{equation*}
+    \lim_{T\to (1-i\epsilon)\infty}\frac{\bra{0}U(T,t)T\left[\phi(x)\phi(y)\right]U(t,-T)\ket{0}}{\left|\braket{\Omega}{0}\right|^2e^{-2iE_0T}}
+\end{equation*}
+But wait! There are three time labels here, the reference time for the adiabatically constructed vacuum $t$, and the time label of time-evolved $\phi$, $x^0$ and $y^0$. For the vacuum to make any sense, operators must be defined on $t$, so there actually exists hidden time evolution. Without loss of generality, we assume $x^0>y^0$
+\begin{equation*}
+    \begin{split}
+        &\lim_{T\to (1-i\epsilon)\infty}\frac{\bra{0}U(T,t)U(x^0,t)^\dagger\phi(x)U(x^0,t)U(y^0,t)^\dagger\phi(y)U(y^0,t)U(t,-T)\ket{0}}{\left|\braket{\Omega}{0}\right|^2e^{-2iE_0T}}\\
+        =&\lim_{T\to (1-i\epsilon)\infty}\frac{\bra{0}U(T,x^0)\phi(x)U(x^0,y^0)\phi(y)U(y^0,-T)\ket{0}}{\left|\braket{\Omega}{0}\right|^2e^{-2iE_0T}}\\
+        =&\lim_{T\to (1-i\epsilon)\infty}\frac{\bra{0}T\left[\phi(x)\phi(y)\exp{\left\{i\int_{-T}^T \mathbf{H}_{\text{int}}(\tau) d\tau\right\}}\right]\ket{0}}{\left|\braket{\Omega}{0}\right|^2e^{-2iE_0T}}
+    \end{split}
+\end{equation*}
+The time order manifest itself and combined to a big one! After dividing by the normalization $\braket{\Omega}{\Omega}$, we are left with
+\begin{equation*}
+    \lim_{T\to (1-i\epsilon)\infty}\frac{\bra{0}T\left[\phi(x)\phi(y)\exp{\left\{i\int_{-T}^T \mathbf{H}_{\text{int}}(\tau) d\tau\right\}}\right]\ket{0}}{\bra{0}T\left[\exp{\left\{i\int_{-T}^T \mathbf{H}_{\text{int}}(\tau) d\tau\right\}}\right]\ket{0}}
+\end{equation*}
+
+This is much simpler. All we need to consider now is how to evaluate the free-vacuum expectation of time-ordered product of operators. Or more precisely, product of field operators, since $\mathbf{H}_\text{int}$ is no more than a string of field operators as well. Due to the nature that the free vacuum can be annihilated, the most obvious idea is to try to commutate the creation and annihilation operators in the operator product until we get a sum of normal ordered operator products. Then, any operator product that still contains annihilation or creation operators will vanish, simply because $\annhil{a}{p}\ket{0}=\bra{0}\crea{a}{p}=0$. Our goal is clear now: find the relation between time ordered operator products and normal ordered operator products. This is the essence of \textbf{Wick Theorem}.
+
+For we are simply working with the field operator, we denote the creation operator and the annihilation operator part of it, respectively, by $\phi_+$ and $\phi_-$. Then the normal ordering is simply all $\phi_+$ to the left and all $\phi_-$ to the right.
+
+We begin by finding out what we get by flipping $\phi_-(x)\phi_+(y)$
+\begin{equation*}
+    \begin{split}
+    \comm{\phi_-(x)}{\phi_+(y)}=&\int\frac{d^3\mathbf{p}}{(2\pi)^3\sqrt{2E_\mathbf{p}}}\frac{d^3\mathbf{p^\prime}}{(2\pi)^3\sqrt{2E_\mathbf{p^\prime}}}e^{-ip\cdot x+ip^\prime\cdot y}\comm{\annhil{a}{p}}{\crea{a}{p^\prime}}\\
+    =&\int\frac{d^3\mathbf{p}}{(2\pi)^3 2E_\mathbf{p}}e^{-ip\cdot(x-y)}\\
+    =&D(x-y)
+    \end{split}
+\end{equation*}
+Therefore, $\phi_-(x)\phi_+(y)=\phi_+(y)\phi_-(x)+D(x-y)$. We now,consider a time ordered product of field operators $\{\phi(x_n)\}$, by requiring $x^0_i>x^0_j$ for $i<j$. For the case $n=2$, the result is trivial
+\begin{equation*}
+    \begin{split}
+        \phi(x_1)\phi(x_2)&=\left(\phi_+(x_1)+\phi_-(x_1)\right)\left(\phi_+(x_2)+\phi_-(x_2)\right)\\
+        &=\phi_+(x_1)\phi_+(x_2)+\phi_+(x_1)\phi_-(x_2)+\phi_-(x_1)\phi_+(x_2)+\phi_-(x_1)\phi_-(x_2)\\
+        &=\phi_+(x_1)\phi_+(x_2)+\phi_+(x_1)\phi_-(x_2)+\phi_+(x_2)\phi_-(x_1)+\phi_-(x_1)\phi_-(x_2)+D(x_1-x_2)\\
+        &=\nomo{\phi(x_1)\phi(x_2)}+D(x_1-x_2)
+    \end{split}
+\end{equation*}
+
 \section{Free Spinor Field}
 If you are familiar enough to the relativistic quantum mechanics, or you simply read previous sections carefully, you know about the Dirac field and the Spin-Statistics Theorem. As indicated in the section title, we will not talk about generic fermions but instead only the Dirac field. Following the route of quantizing scalars, some perhaps can't wait to write down the Lagrangian for the Dirac field and canonically quantize it. For those people: another disappointment for you! While that is what we will do later, we will first do some tedious maths and clarify what is the spin of fields we've been constantly talking about.
 \subsection{Representation Theory}
