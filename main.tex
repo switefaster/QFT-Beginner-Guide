@@ -521,6 +521,30 @@ Therefore, $\phi_-(x)\phi_+(y)=\phi_+(y)\phi_-(x)+D(x-y)$. We now,consider a tim
     \end{split}
 \end{equation*}
 
+For $n=3$
+\begin{equation*}
+    \begin{split}
+        \phi(x_1)\phi(x_2)\phi(x_3)&=\left(\phi_+(x_1)+\phi_-(x_1)\right)\left(\phi_+(x_2)+\phi_-(x_2)\right)\left(\phi_+(x_3)+\phi_-(x_3)\right)\\
+        &=\left[\nomo{\phi(x_1)\phi(x_2)}+D(x_1-x_2)\right]\nomo{\phi(x_3)}\\
+        &=\nomo{\phi(x_1)\phi(x_2)}\phi_+(x_3)+\nomo{\phi(x_1)\phi(x_2)}\phi_-(x_3)+D(x_1-x_2)\nomo{\phi(x_3)}\\
+        &=\nomo{\phi(x_1)\phi(x_2)\phi(x_3)}\\
+        &\qquad+D(x_2-x_3)\nomo{\phi(x_1)}+D(x_1-x_3)\nomo{\phi(x_2)}+D(x_1-x_2)\nomo{\phi(x_3)}
+    \end{split}
+\end{equation*}
+
+We begin to see some patterns! When we succeedingly append new field operators to the product, by provoking the ordered pattern for shorter products, we only need to flip terms of the form
+$$
+    \nomo{\phi(x_1)\phi(x_2)\cdots\phi(x_n)}\phi_+(x_{n+1})
+$$
+because$\nomo{\phi(x_1)\phi(x_2)\cdots\phi(x_n)}\phi_-(x_{n+1})$ is already properly ordered. In doing so, we are commuting $\phi_+(x_{n+1})$ across all the possible permutations of all the possible subsets of $\phi_-(x_i)$. Apparently, this is tedious, but note that for each $\phi_\pm(x_{\sigma_1})\cdots\phi_\pm(x_{\sigma_{n-1}})\phi_-(x_{\sigma_n})\phi_+(x_{n+1})$, if we swap the last two, we get
+$$
+\phi_\pm(x_{\sigma_1})\cdots\phi_\pm(x_{\sigma_{n-1}})\phi_+(x_{n+1})\phi_-(x_{\sigma_n})+\phi_\pm(x_{\sigma_1})\cdots\phi_\pm(x_{\sigma_{n-1}})D(x_{\sigma_n}-x_{n+1})
+$$
+For a fixed $\sigma_n$, the factor before $D(x_{\sigma_n}-x_{n+1})$ will iterate over all normal ordered products of $\phi_\pm(x_{\sigma_1})\cdots\phi_\pm(x_{\sigma_{n-1}})$ by construction. Therefore, in the end, we will have
+\begin{equation*}
+    \sum_{\sigma_i\in \mathcal{P}_n}\left[\phi_\pm(x_{\sigma_1})\cdots\phi_\pm(x_{\sigma_{n-1}})\phi_+(x_{n+1})\phi_-(x_{\sigma_n})+\nomo{\phi(x_{\sigma_1})\cdots\phi(x_{\sigma_{n-1}})}D(x_{\sigma_n}-x_{n+1})\right]
+\end{equation*}
+
 \section{Free Spinor Field}
 If you are familiar enough to the relativistic quantum mechanics, or you simply read previous sections carefully, you know about the Dirac field and the Spin-Statistics Theorem. As indicated in the section title, we will not talk about generic fermions but instead only the Dirac field. Following the route of quantizing scalars, some perhaps can't wait to write down the Lagrangian for the Dirac field and canonically quantize it. For those people: another disappointment for you! While that is what we will do later, we will first do some tedious maths and clarify what is the spin of fields we've been constantly talking about.
 \subsection{Representation Theory}
