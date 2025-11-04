@@ -1,5 +1,7 @@
 \documentclass{naive-article}
 
+\usepackage{simpler-wick}
+\usepackage{cancel}
 \usepackage{tikz}
 \usetikzlibrary{decorations.markings}
 
@@ -532,18 +534,46 @@ For $n=3$
     \end{split}
 \end{equation*}
 
-We begin to see some patterns! When we succeedingly append new field operators to the product, by provoking the ordered pattern for shorter products, we only need to flip terms of the form
+From below, we demand ascending $x_i$ within $\phi_\pm$, respectively, to avoid overcounting in normal ordered products. When we succeedingly append new field operators to the product, by provoking the ordered pattern for shorter products, we only need to flip terms of the form
 $$
     \nomo{\phi(x_1)\phi(x_2)\cdots\phi(x_n)}\phi_+(x_{n+1})
 $$
-because$\nomo{\phi(x_1)\phi(x_2)\cdots\phi(x_n)}\phi_-(x_{n+1})$ is already properly ordered. In doing so, we are commuting $\phi_+(x_{n+1})$ across all the possible permutations of all the possible subsets of $\phi_-(x_i)$. Apparently, this is tedious, but note that for each $\phi_\pm(x_{\sigma_1})\cdots\phi_\pm(x_{\sigma_{n-1}})\phi_-(x_{\sigma_n})\phi_+(x_{n+1})$, if we swap the last two, we get
-$$
-\phi_\pm(x_{\sigma_1})\cdots\phi_\pm(x_{\sigma_{n-1}})\phi_+(x_{n+1})\phi_-(x_{\sigma_n})+\phi_\pm(x_{\sigma_1})\cdots\phi_\pm(x_{\sigma_{n-1}})D(x_{\sigma_n}-x_{n+1})
-$$
-For a fixed $\sigma_n$, the factor before $D(x_{\sigma_n}-x_{n+1})$ will iterate over all normal ordered products of $\phi_\pm(x_{\sigma_1})\cdots\phi_\pm(x_{\sigma_{n-1}})$ by construction. Therefore, in the end, we will have
+because$\nomo{\phi(x_1)\phi(x_2)\cdots\phi(x_n)}\phi_-(x_{n+1})$ is already properly ordered. In doing so, we only need to consider different sequences of $\prod_{0<\sigma_1<\sigma_2<\cdots<\sigma_k\leq n}\phi_-(x_{\sigma_i})$ present in each terms, where $k$ can range from $1$ to $n$. For each of such sequences
 \begin{equation*}
-    \sum_{\sigma_i\in \mathcal{P}_n}\left[\phi_\pm(x_{\sigma_1})\cdots\phi_\pm(x_{\sigma_{n-1}})\phi_+(x_{n+1})\phi_-(x_{\sigma_n})+\nomo{\phi(x_{\sigma_1})\cdots\phi(x_{\sigma_{n-1}})}D(x_{\sigma_n}-x_{n+1})\right]
+\begin{split}
+    &\quad\phi_-(x_{\sigma_1})\phi_-(x_{\sigma_2})\cdots\phi_-(x_{\sigma_k})\phi_+(x_{n+1})\\
+    &=\phi_-(x_{\sigma_1})\cdots\phi_-(x_{\sigma_{k-1}})\phi_+(x_{n+1})\phi_-(x_{\sigma_k})+\phi_-(x_{\sigma_1})\cdots\phi_-(x_{\sigma_{k-1}})D(x_{\sigma_k}-x_{n+1})\\
+    &=\phi_-(x_{\sigma_1})\cdots\phi_-(x_{\sigma_{k-2}})\phi_+(x_{n+1})\phi_-(x_{\sigma_{k-1}})\phi_-(x_{\sigma_k})\\
+    &\qquad+\phi_-(x_{\sigma_1})\cdots\phi_-(x_{\sigma_{k-2}})\phi_-(x_{\sigma_k})D(x_{\sigma_{k-1}}-x_{n+1})+\phi_-(x_{\sigma_1})\cdots\phi_-(x_{\sigma_{k-1}})D(x_{\sigma_k}-x_{n+1})\\
+    &=\phi_+(x_{n+1})\phi_-(x_{\sigma_1})\phi_-(x_{\sigma_2})\cdots\phi_-(x_{\sigma_k})\\
+    &\qquad+\sum_{i=1}^k\phi_-(x_{\sigma_1})\cdots\phi_-(x_{\sigma_{i-1}})\phi_-(x_{\sigma_{i+1}})\cdots\phi_-(x_{\sigma_k})D(x_{\sigma_i}-x_{n+1})
+\end{split}
 \end{equation*}
+
+By applying this to all terms, all are now again properly ordered, but with some extra $D(x_i-x_{n+1})$ produced by removing $\phi_-(x_i)$ from the products. Note, however, if we collect all operator products for a single $D(x_i-x_{n+1})$, we will realize that they uniquely iterate over all possible ascending operator products without $\phi_-(x_i)$. Therefore, what one actually obtain is
+\begin{multline}
+    \label{nomo-commutation}
+    \nomo{\phi(x_1)\phi(x_2)\cdots\phi(x_n)}\phi_+(x_{n+1})=\phi_+(x_{n+1})\nomo{\phi(x_1)\phi(x_2)\cdots\phi(x_n)}\\+\sum_{i=1}^nD(x_i-x_{n+1})\nomo{\phi(x_1)\cdots\phi(x_{i-1})\phi(x_{i+1})\cdots\phi(x_n)}
+\end{multline}
+
+This applies to extending the conversion of time ordering immediately. Since, from the $n=2$ case, we know the commutation results in some normal ordered products multiplied by some propagators $D(x_i-x_j)$. Therefore, if we append a new field, the tuning of $\phi_+(x_{n+1})$ to the proper position yields more similar terms by removing one of the existing field and multiplying by a new propagator. Another technical issue is that we have fixed the time in order of $x_i$ in the derivation, but we generally work with time ordering surrounding field products with unknown time order. This can be easily mended, because we know if we consider $T\left[\phi(x_i)\phi(x_j)\right]$, we get $D(x_i-x_j)$ for $x^0_i>x^0_j$, and $D(x_j-x_i)$ for $x^0_i<x^0_j$, by the definition of time ordering and the virtue of our derivation. But this is simply the definition of the Feynman propagator \eqref{feynman-propagator}! So, even with time ordering, everything still work by replacing $D$ using $D_F$. Hence, we can now officially state the celebrated \textbf{Wick Theorem}
+\begin{definition}[Wick Contraction]
+    \begin{equation*}
+        \wick{\nomo{\phi(x_1)\cdots\c1\phi(x_i)\cdots\c1\phi(x_j)\cdots\phi(x_n)}}=\nomo{\phi(x_1)\cdots\cancel{\phi(x_i)}\cdots\cancel{\phi(x_j)}\cdots\phi(x_n)}D_F(x_i-x_j)
+    \end{equation*}
+\end{definition}
+\begin{theorem}[Wick Theorem]
+    The time ordering of field operators is equal to the sum of \textbf{all} possible Wick contractions multiplied by the normal ordering of the leftover field operators.
+    \begin{equation*}
+        \begin{split}
+            T\left[\phi(x_1)\phi(x_2)\phi(x_3)\phi(x_4)\right]=&\nomo{\phi(x_1)\phi(x_2)\phi(x_3)\phi(x_4)}+\nomo{\wick{\c1\phi(x_1)\c1\phi(x_2)\phi(x_3)\phi(x_4)}}\\
+            &+\nomo{\wick{\c1\phi(x_1)\phi(x_2)\c1\phi(x_3)\phi(x_4)}}+\nomo{\wick{\c1\phi(x_1)\phi(x_2)\phi(x_3)\c1\phi(x_4)}}\\
+            &+\nomo{\wick{\phi(x_1)\c1\phi(x_2)\c1\phi(x_3)\phi(x_4)}}+\nomo{\wick{\phi(x_1)\c1\phi(x_2)\phi(x_3)\c1\phi(x_4)}}\\
+            &+\nomo{\wick{\phi(x_1)\phi(x_2)\c1\phi(x_3)\c1\phi(x_4)}}+\nomo{\wick{\c1\phi(x_1)\c1\phi(x_2)\c1\phi(x_3)\c1\phi(x_4)}}\\
+            &+\nomo{\wick{\c2\phi(x_1)\c1\phi(x_2)\c2\phi(x_3)\c1\phi(x_4)}}+\nomo{\wick{\c2\phi(x_1)\c1\phi(x_2)\c1\phi(x_3)\c2\phi(x_4)}}
+        \end{split}
+    \end{equation*}
+\end{theorem}
 
 \section{Free Spinor Field}
 If you are familiar enough to the relativistic quantum mechanics, or you simply read previous sections carefully, you know about the Dirac field and the Spin-Statistics Theorem. As indicated in the section title, we will not talk about generic fermions but instead only the Dirac field. Following the route of quantizing scalars, some perhaps can't wait to write down the Lagrangian for the Dirac field and canonically quantize it. For those people: another disappointment for you! While that is what we will do later, we will first do some tedious maths and clarify what is the spin of fields we've been constantly talking about.
