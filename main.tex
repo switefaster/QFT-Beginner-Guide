@@ -564,16 +564,23 @@ This applies to extending the conversion of time ordering immediately. Since, fr
 \end{definition}
 \begin{theorem}[Wick Theorem]
     The time ordering of field operators is equal to the sum of \textbf{all} possible Wick contractions multiplied by the normal ordering of the leftover field operators.
-    \begin{equation*}
-        \begin{split}
-            T\left[\phi(x_1)\phi(x_2)\phi(x_3)\phi(x_4)\right]=&\nomo{\phi(x_1)\phi(x_2)\phi(x_3)\phi(x_4)}+\nomo{\wick{\c1\phi(x_1)\c1\phi(x_2)\phi(x_3)\phi(x_4)}}\\
-            &+\nomo{\wick{\c1\phi(x_1)\phi(x_2)\c1\phi(x_3)\phi(x_4)}}+\nomo{\wick{\c1\phi(x_1)\phi(x_2)\phi(x_3)\c1\phi(x_4)}}\\
-            &+\nomo{\wick{\phi(x_1)\c1\phi(x_2)\c1\phi(x_3)\phi(x_4)}}+\nomo{\wick{\phi(x_1)\c1\phi(x_2)\phi(x_3)\c1\phi(x_4)}}\\
-            &+\nomo{\wick{\phi(x_1)\phi(x_2)\c1\phi(x_3)\c1\phi(x_4)}}+\nomo{\wick{\c1\phi(x_1)\c1\phi(x_2)\c1\phi(x_3)\c1\phi(x_4)}}\\
-            &+\nomo{\wick{\c2\phi(x_1)\c1\phi(x_2)\c2\phi(x_3)\c1\phi(x_4)}}+\nomo{\wick{\c2\phi(x_1)\c1\phi(x_2)\c1\phi(x_3)\c2\phi(x_4)}}
-        \end{split}
-    \end{equation*}
 \end{theorem}
+\begin{proof}
+    Repeat the process on $n=2$ to get arbitrary $n$.
+\end{proof}
+
+We explicitly write down the Wick theorem for four operators, as a showcase.
+\begin{equation*}
+        \begin{split}
+        T\left[\phi(x_1)\phi(x_2)\phi(x_3)\phi(x_4)\right]=&\nomo{\phi(x_1)\phi(x_2)\phi(x_3)\phi(x_4)}+\nomo{\wick{\c1\phi(x_1)\c1\phi(x_2)\phi(x_3)\phi(x_4)}}\\
+        &+\nomo{\wick{\c1\phi(x_1)\phi(x_2)\c1\phi(x_3)\phi(x_4)}}+\nomo{\wick{\c1\phi(x_1)\phi(x_2)\phi(x_3)\c1\phi(x_4)}}\\
+        &+\nomo{\wick{\phi(x_1)\c1\phi(x_2)\c1\phi(x_3)\phi(x_4)}}+\nomo{\wick{\phi(x_1)\c1\phi(x_2)\phi(x_3)\c1\phi(x_4)}}\\
+        &+\nomo{\wick{\phi(x_1)\phi(x_2)\c1\phi(x_3)\c1\phi(x_4)}}+\nomo{\wick{\c1\phi(x_1)\c1\phi(x_2)\c1\phi(x_3)\c1\phi(x_4)}}\\
+        &+\nomo{\wick{\c2\phi(x_1)\c1\phi(x_2)\c2\phi(x_3)\c1\phi(x_4)}}+\nomo{\wick{\c2\phi(x_1)\c1\phi(x_2)\c1\phi(x_3)\c2\phi(x_4)}}
+    \end{split}
+\end{equation*}
+
+The benefit of Wick theorem is huge. Thanks to the normal order, we can immediately identify what actually contributes to the correlation functions: those contractions that leave no fields behind.
 
 \section{Free Spinor Field}
 If you are familiar enough to the relativistic quantum mechanics, or you simply read previous sections carefully, you know about the Dirac field and the Spin-Statistics Theorem. As indicated in the section title, we will not talk about generic fermions but instead only the Dirac field. Following the route of quantizing scalars, some perhaps can't wait to write down the Lagrangian for the Dirac field and canonically quantize it. For those people: another disappointment for you! While that is what we will do later, we will first do some tedious maths and clarify what is the spin of fields we've been constantly talking about.
